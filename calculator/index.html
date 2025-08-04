@@ -1,0 +1,75 @@
+ls
+[A[C<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uche's Petrophysics Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    input,
+    button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+    }
+
+    .results {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Uche's Petrophysics Calculator</h1>
+  <input id="bulkVolume" type="number" placeholder="Bulk Volume">
+  <input id="poreVolume" type="number" placeholder="Pore Volume">
+  <input id="waterVolume" type="number" placeholder="Water Volume">
+  <input id="specificGravity" type="number" placeholder="Specific Gravity">
+  <input id="viscosity" type="number" placeholder="Viscosity">
+  <input id="formationVolumeFactor" type="number" placeholder="Formation Volume Factor">
+  <input id="gor" type="number" placeholder="Gas-Oil Ratio (GOR)">
+  <input id="capillaryPressure" type="number" placeholder="Capillary Pressure">
+  <input id="fluidDensity" type="number" placeholder="Fluid Density">
+  <button onclick="calculate()">Calculate</button>
+  <div class="results" id="results"></div>
+
+  <script>
+    function calculate() {
+            const bulkVolume = parseFloat(document.getElementById('bulkVolume').value) || 0;
+            const poreVolume = parseFloat(document.getElementById('poreVolume').value) || 0;
+            const waterVolume = parseFloat(document.getElementById('waterVolume').value) || 0;
+            const specificGravity = parseFloat(document.getElementById('specificGravity').value) || 0;
+            const viscosity = parseFloat(document.getElementById('viscosity').value) || 0;
+            const formationVolumeFactor = parseFloat(document.getElementById('formationVolumeFactor').value) || 0;
+            const gor = parseFloat(document.getElementById('gor').value) || 0;
+            const capillaryPressure = parseFloat(document.getElementById('capillaryPressure').value) || 0;
+            const fluidDensity = parseFloat(document.getElementById('fluidDensity').value) || 0;
+
+            const porosity = bulkVolume ? (poreVolume / bulkVolume) * 100 : 0;
+            const saturation = poreVolume ? (waterVolume / poreVolume) * 100 : 0;
+            const apiGravity = specificGravity ? (141.5 / specificGravity) - 131.5 : 0;
+
+            document.getElementById('results').innerHTML = `
+                <p>Porosity: ${porosity.toFixed(2)}%</p>
+                <p>Saturation: ${saturation.toFixed(2)}%</p>
+                <p>API Gravity: ${apiGravity.toFixed(2)}</p>
+                <p>Viscosity: ${viscosity}</p>
+                <p>Formation Volume Factor: ${formationVolumeFactor}</p>
+                <p>GOR: ${gor}</p>
+                <p>Capillary Pressure: ${capillaryPressure}</p>
+                <p>Fluid Density: ${fluidDensity}</p>
+            `;
+        }
+  </script>
+</body>
+
+</html>
